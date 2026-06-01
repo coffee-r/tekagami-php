@@ -1,0 +1,75 @@
+{
+  "generated_at": "2026-05-31T21:00:00+00:00",
+  "trace_count": 10,
+  "observed_entrypoint_count": 2,
+  "value_mode": "normalized",
+  "observed_entrypoints": [
+    {
+      "entrypoint_key": "GET /api/cart",
+      "method": "GET",
+      "path": "/api/cart",
+      "observed_count": 5,
+      "status_codes": {"200": 5},
+      "error_count": 0,
+      "patterns": [
+        {
+          "id": "pattern-1",
+          "count": 5,
+          "statuses": [200],
+          "signature": "SELECT:SHOP_CART_ITEMS:S1 -> STATUS:200",
+          "truncated": false,
+          "truncation_limit": null,
+          "representative_trace_id": "aaa-001",
+          "sql_flow": [
+            {"s": "S1", "op": "SELECT", "tables": ["SHOP_CART_ITEMS"], "fp": "fp1:aaa111222333444555666777888999aaabbbccc"}
+          ],
+          "effects": []
+        }
+      ]
+    },
+    {
+      "entrypoint_key": "POST /api/cart/items",
+      "method": "POST",
+      "path": "/api/cart/items",
+      "observed_count": 5,
+      "status_codes": {"201": 3, "404": 2},
+      "error_count": 0,
+      "patterns": [
+        {
+          "id": "pattern-1",
+          "count": 3,
+          "statuses": [201],
+          "signature": "SELECT:SHOP_PRODUCTS:S2 -> INSERT:SHOP_CART_ITEMS:S3 -> STATUS:201",
+          "truncated": false,
+          "truncation_limit": null,
+          "representative_trace_id": "bbb-001",
+          "sql_flow": [
+            {"s": "S2", "op": "SELECT", "tables": ["SHOP_PRODUCTS"], "fp": "fp1:bbb111222333444555666777888999aaabbbccc"},
+            {"s": "S3", "op": "INSERT", "tables": ["SHOP_CART_ITEMS"], "fp": "fp1:ccc111222333444555666777888999aaabbbccc"}
+          ],
+          "effects": [
+            {"op": "INSERT", "table": "SHOP_CART_ITEMS", "statement_hash": "sha256:legacyhash", "count": 3}
+          ]
+        },
+        {
+          "id": "pattern-2",
+          "count": 2,
+          "statuses": [404],
+          "signature": "SELECT:SHOP_PRODUCTS:S2 -> STATUS:404",
+          "truncated": false,
+          "truncation_limit": null,
+          "representative_trace_id": "ccc-001",
+          "sql_flow": [
+            {"s": "S2", "op": "SELECT", "tables": ["SHOP_PRODUCTS"], "fp": "fp1:bbb111222333444555666777888999aaabbbccc"}
+          ],
+          "effects": []
+        }
+      ]
+    }
+  ],
+  "sql_dictionary": {
+    "S1": "SELECT * FROM SHOP_CART_ITEMS WHERE CUSTOMER_ID = {parameter}",
+    "S2": "SELECT * FROM SHOP_PRODUCTS WHERE CODE = {parameter}",
+    "S3": "INSERT INTO SHOP_CART_ITEMS (CUSTOMER_ID, PRODUCT_CODE, QUANTITY) VALUES ({parameter}, {parameter}, {parameter})"
+  }
+}
