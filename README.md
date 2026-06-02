@@ -1,4 +1,4 @@
-# tekagami-php
+# tekagami
 
 > [!NOTE]
 > このライブラリは実験中になります。
@@ -35,7 +35,7 @@ flowchart LR
 
 JSONL には HTTP 入出力の shape、SQL の時系列、custom イベント、errors、effects が入ります。`summary` は観測された endpoint 地図を作り、`report` はエントリポイントと実行パターンを人間向けに集計し、`export` はSQL全文を辞書化して AI に渡しやすい小さな JSON にします。`diff` は legacy / target の export を比較して決定論的な差分を出します。
 
-モノレポ上の上位レイヤとして、観測証拠とコード・DDL・マスタデータを合わせて仕様候補を作るための [spec workflow](../spec/README.md) と、言語非依存な [schema contract](../contracts/schema/README.md) があります。`tekagami-php` は PHP アプリ用 observer / Composer package です。
+モノレポ上の上位レイヤとして、観測証拠とコード・DDL・マスタデータを合わせて仕様候補を作るための [spec workflow](../spec/README.md) と、言語非依存な [schema contract](../contracts/schema/README.md) があります。`tekagami` は PHP アプリ用 observer / Composer package です。
 
 ## ソースコード解析・RAGとの関係
 
